@@ -21,7 +21,6 @@
         "webpack-version-file": "^0.1.6"
     },
     "dependencies": {
-        "@mdi/js": "^7.0.96",
         "eventemitter3": "^4.0.7",
         "fuse.js": "^6.6.2"
     }
