@@ -1,0 +1,85 @@
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: skaffold
+build:
+  artifacts:
+  - image: shokohsc/jump
+    context: .
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: jumpapp/**/*.php
+        dest: .
+      - src: jumpapp/**/*.mustache
+        dest: .
+deploy:
+  kustomize:
+    paths:
+    - k8s/base
+profiles:
+- name: dev
+  activation:
+  - command: dev
+  build:
+    artifacts:
+    - image: shokohsc/jump
+      sync:
+        manual:
+        - src: jumpapp/**/*.php
+          dest: .
+        - src: jumpapp/**/*.mustache
+          dest: .
+      docker:
+        dockerfile: Dockerfile
+- name: shokohsc
+  build:
+    artifacts:
+    - image: shokohsc/jump
+      sync:
+        manual:
+        - src: jumpapp/**/*.php
+          dest: .
+        - src: jumpapp/**/*.mustache
+          dest: .
+      kaniko:
+        cache:
+          repo: shokohsc/jump
+        dockerfile: Dockerfile
+    cluster:
+      dockerConfig:
+        secretName: kaniko-secret
+      namespace: kaniko
+      pullSecretName: kaniko-secret
+      resources:
+        limits:
+          cpu: "2"
+          memory: 2Gi
+        requests:
+          cpu: "1"
+          memory: 1Gi
+  deploy:
+    kustomize:
+      paths:
+      - k8s/overlays/shokohsc
+- name: prod
+  build:
+    artifacts:
+    - image: shokohsc/jump
+      kaniko:
+        cache:
+          repo: shokohsc/jump
+        dockerfile: Dockerfile
+    cluster:
+      dockerConfig:
+        secretName: kaniko-secret
+      namespace: kaniko
+      pullSecretName: kaniko-secret
+      resources:
+        limits:
+          cpu: "2"
+          memory: 2Gi
+        requests:
+          cpu: "1"
+          memory: 1Gi

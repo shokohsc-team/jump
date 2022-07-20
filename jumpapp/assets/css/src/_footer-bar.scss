@@ -53,7 +53,7 @@
     padding:5px 10px;
     height: 58px;
     user-select: none;
-    z-index:1000;
+    z-index: -10;
 
     &.clickable {
         border-radius: 6px;

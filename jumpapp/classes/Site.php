@@ -2,7 +2,7 @@
 
 namespace Jump;
 
-use stdClass;
+use \stdClass;
 
 /**
  * Parse the data required to represent a site and provide method for generating

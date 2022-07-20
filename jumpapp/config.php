@@ -49,4 +49,6 @@ return [
     'latlong'        => getenv('LATLONG')        ?:   '',
     // Temperature unit: True = metric / False = imperial.
     'metrictemp'     => getenv('METRICTEMP')     ?:   true,
+    // Sites endpoint url
+    'sitesendpointurl'     => getenv('SITES_ENDPOINT_URL')     ?:   '',
 ];

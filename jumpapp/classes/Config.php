@@ -40,7 +40,8 @@ class Config {
         'wwwroot',
         'cachebypass',
         'cachedir',
-        'noindex'
+        'noindex',
+        'sitesendpointurl'
     ];
 
     /**

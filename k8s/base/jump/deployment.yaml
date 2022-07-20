@@ -1,0 +1,47 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jump
+spec:
+  selector:
+    matchLabels:
+      app: jump
+  template:
+    metadata:
+      labels:
+        app: jump
+    spec:
+      containers:
+        - name: jump
+          image: shokohsc/jump
+          env:
+            - name: SHOWGREETING
+              value: 'false'
+            - name: SHOWSEARCH
+              value: 'false'
+            - name: CACHEBYPASS
+              value: 'true'
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          startupProbe:
+            tcpSocket:
+              port: http
+          livenessProbe:
+            tcpSocket:
+              port: http
+          readinessProbe:
+            tcpSocket:
+              port: http
+            # httpGet:
+            #   port: http
+            #   path: /
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64M
+            limits:
+              cpu: 100m
+              memory: 64M

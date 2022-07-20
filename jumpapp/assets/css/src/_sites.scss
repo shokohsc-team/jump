@@ -24,6 +24,10 @@
 				background-color: #ffffff15;
 				transition: background-color .1s;
 			}
+
+			span.mdi {
+				font-size: 30px;
+			}
 		}
 	}
 
@@ -50,12 +54,12 @@
 
 	.name {
 		display: block;
-		width: 80px;
+		// width: 80px;
 		max-height: 3.3em;
-		overflow: hidden;
-		word-wrap: break-word;
+		// overflow: hidden;
+		// word-wrap: break-word;
 		text-shadow: 1px 1px 1px #000000a0;
-		text-overflow: ellipsis;
+		// text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 }

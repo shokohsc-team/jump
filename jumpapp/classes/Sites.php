@@ -19,6 +19,7 @@ class Sites {
     private array $default;
     private string $sitesfilelocation;
     private array $loadedsites;
+    private string $sitesendpointurl;
 
     /**
      * Automatically load sites.json on instantiation.
@@ -27,6 +28,7 @@ class Sites {
         $this->config = $config;
         $this->loadedsites = [];
         $this->sitesfilelocation = $this->config->get('sitesfile');
+        $this->sitesendpointurl = $this->config->get('sitesendpointurl');
         $this->cache = $cache;
         $this->default = [
             'icon' => null,
@@ -38,7 +40,7 @@ class Sites {
         // Retrieve sites from cache. Load all sites from json file if not cached or
         // the cache has expired.
         $this->loadedsites = $this->cache->load(cachename: 'sites', callback: function() {
-            return $this->load_sites_from_json();
+            return !empty($this->sitesendpointurl) ? $this->load_sites_from_url() : $this->load_sites_from_json();
         });
 
         // Enumerate a list of unique tags from loaded sites. Again will retrieve from
@@ -95,6 +97,45 @@ class Sites {
         return $allsites;
     }
 
+    /**
+     * Try to load the list of sites from sites url endpoint.
+     *
+     * Throws an exception if cannot be decoded to an array
+     *
+     * @return array Array of Site objects sites loaded from sites url endpoint
+     * @throws Exception If sites cannot be decoded.
+     */
+    private function load_sites_from_url(): array {
+        $allsites = [];
+        $rawjson = file_get_contents($this->sitesendpointurl);
+        if ($rawjson === false) {
+            throw new Exception('There was a problem loading the sites url endpoint');
+        }
+        if ($rawjson === '') {
+            throw new Exception('The sites url endpoint is empty');
+        }
+        // Do some checks to see if the JSON decodes into something
+        // like what we expect to see...
+        $decodedjson = json_decode($rawjson);
+        // First we'll assume maybe the old format for sites.json.
+        if (is_array($decodedjson)) {
+            $allsites = $decodedjson;
+        }
+        // Now check for the newer format.
+        if (isset($decodedjson->sites) && is_array($decodedjson->sites)) {
+            $allsites = $decodedjson->sites;
+            $this->default = (array) $decodedjson->default;
+        }
+
+        // Instantiate an actual Site() object for each element.
+        foreach ($allsites as $key => $item) {
+            $allsites[$key] = new Site($this->config, (array) $item, $this->default);
+        }
+
+        // Return the array of Site() objects, note we are in a callback
+        // so the return is not from the outer function.
+        return $allsites;
+    }
     /**
      * Returns an array of all loaded Site objects.
      *
