@@ -11,6 +11,6 @@ spec:
           image: shokohsc/jump
           env:
             - name: SITES_ENDPOINT_URL
-              value: 'http://api.moleculer-sidekick:3000/api/startpage/jump'
+              value: 'http://api.sidekick:3000/api/startpage/jump'
             - name: SHOWCLOCK
               value: 'false'

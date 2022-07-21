@@ -33,8 +33,11 @@ class Main {
 			'class' => 'Jump\API\Unsplash'
 		]);
         $this->router->addRoute('/api/weather[/<token>[/<lat>[/<lon>]]]', [
-			'class' => 'Jump\API\Weather'
-		]);
+      'class' => 'Jump\API\Weather'
+    ]);
+        $this->router->addRoute('/api/health', [
+      'class' => 'Jump\API\Health'
+    ]);
     }
 
     function init() {

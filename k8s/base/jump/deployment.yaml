@@ -33,11 +33,9 @@ spec:
             tcpSocket:
               port: http
           readinessProbe:
-            tcpSocket:
+            httpGet:
               port: http
-            # httpGet:
-            #   port: http
-            #   path: /
+              path: /api/health
           resources:
             requests:
               cpu: 10m
