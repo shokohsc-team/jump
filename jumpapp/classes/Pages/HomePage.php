@@ -12,6 +12,7 @@ class HomePage extends AbstractPage {
         }
         $csrfsection = $this->session->getSection('csrf');
         $unsplashdata = $this->cache->load('unsplash');
+        $youtubevideoidsarray = explode(',', $this->config->get('youtubevideoids', false));
         $templatecontext = [
             'csrftoken' => $csrfsection->get('token'),
             'greeting' => $greeting,
@@ -23,6 +24,7 @@ class HomePage extends AbstractPage {
             'unsplash' => !!$this->config->get('unsplashapikey', false),
             'unsplashcolor' => $unsplashdata?->color,
             'wwwurl' => $this->config->get_wwwurl(),
+            'youtubevideoid' => $youtubevideoidsarray[array_rand($youtubevideoidsarray)],
         ];
         if ($this->config->parse_bool($this->config->get('showsearch', false))) {
             $templatecontext = array_merge($templatecontext, [

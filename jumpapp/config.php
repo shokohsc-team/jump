@@ -51,4 +51,6 @@ return [
     'metrictemp'     => getenv('METRICTEMP')     ?:   true,
     // Sites endpoint url
     'sitesendpointurl'     => getenv('SITES_ENDPOINT_URL')     ?:   '',
+    // Youtube video ids
+    'youtubevideoids'       => getenv('YOUTUBEVIDEOIDS') ?: 'eEpEeyqGlxA',
 ];

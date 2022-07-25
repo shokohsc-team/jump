@@ -14,3 +14,5 @@ spec:
               value: 'http://api.sidekick:3000/api/startpage/jump'
             - name: SHOWCLOCK
               value: 'false'
+            - name: YOUTUBEVIDEOIDS
+              value: 'eEpEeyqGlxA,9k4R3BhUi68,cQLa6lbZvzw,J2UyOTS3UCE,WA6irSA3SKc,Y1qQZbTF8iQ,BuIVgtAXW_8'

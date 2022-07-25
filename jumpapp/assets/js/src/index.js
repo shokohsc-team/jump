@@ -7,6 +7,7 @@
 
 import Main from './classes/Main';
 import version from '../../../.jump-version';
+import 'youtube-background';
 
 console.info(`%c
 ----------------------------------
@@ -29,3 +30,5 @@ https://github.com/daledavies/jump
 
 let jumpapp = new Main();
 jumpapp.init();
+
+new VideoBackgrounds('[data-vbg]');

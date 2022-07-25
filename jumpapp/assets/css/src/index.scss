@@ -61,7 +61,7 @@ body {
     background-size: cover;
     background-position: center center;
     transform: scale(1.07);
-    z-index: -1;
+    z-index: -2;
 }
 
 .unsplash {
@@ -69,7 +69,7 @@ body {
     position: fixed;
     width: 100%;
     bottom: 23px;
-    z-index: 100;
+    z-index: -2;
     text-align: center;
     font-family: 'Quicksand', sans-serif;
     font-size: 11px;
@@ -92,11 +92,27 @@ body {
 }
 
 .content {
-    z-index: 100;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content:center;
     width: 100%;
     max-width: 650px;
     margin:-50px auto 0 auto;
+    position: relative;
+}
+
+.video {
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  position: fixed !important;
+  overflow: hidden;
+  inset: 0px;
+  pointer-events: none;
+  background-image: #000 !important;
+  // background-image: url("https://img.youtube.com/vi/eEpEeyqGlxA/maxresdefault.jpg");
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  // background-position: center center;
 }

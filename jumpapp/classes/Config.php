@@ -41,7 +41,8 @@ class Config {
         'cachebypass',
         'cachedir',
         'noindex',
-        'sitesendpointurl'
+        'sitesendpointurl',
+        'youtubevideoids',
     ];
 
     /**
